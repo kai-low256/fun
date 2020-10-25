@@ -1,3 +1,26 @@
+//roll a dice with <sides>
+command.on(
+  'roll',
+  (args) => ({
+    sides: args.integerOptional()
+  }),
+  async (message, { sides }) => {
+    sides = sides || 6;
+
+    const result = Math.ceil(Math.random() * sides);
+    message.reply(
+      new discord.Embed({
+        title: `${message.author.getTag()}'s Roll`,
+        color: (Math.random() * 0xffffff) | 0,
+        description: `🎲 You Landed on **${result}!**`,
+        footer: {
+          text: '%help'
+        }
+      }).setTimestamp(new Date().toISOString())
+    );
+  }
+);
+
 //wish somebody happy birthday
 commands.on(
   'wishbirth',
