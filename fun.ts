@@ -1,5 +1,5 @@
 //roll a dice with <sides>
-command.on(
+commands.on(
   'roll',
   (args) => ({
     sides: args.integerOptional()
@@ -18,6 +18,57 @@ command.on(
         }
       }).setTimestamp(new Date().toISOString())
     );
+  }
+);
+
+//sus rating
+function randomChoice<T>(items: T[]): T {
+  return items[(items.length * Math.random()) | 0];
+}
+
+commands.on(
+  'susrate',
+  (args) => ({
+    user: args.userOptional()
+  }),
+  async (message, { user }) => {
+    await message.addReaction('🔌');
+    if (user !== null) {
+      const richEmbed = new discord.Embed();
+      richEmbed.setTitle(
+        `Sus Calculator ${discord.decor.Emojis.ELECTRIC_PLUG}`
+      );
+      richEmbed.setDescription(
+        `${user?.getTag()} is **${(Math.random() * 101) | 0}%** Sus ${
+          discord.decor.Emojis.WAVE
+        }`
+      );
+      richEmbed.setThumbnail({ url: user?.getAvatarUrl() });
+      richEmbed.setColor((Math.random() * 0xffffff) | 0);
+      richEmbed.addField({
+        name: '**ID:**',
+        value: user.id,
+        inline: false
+      });
+      await message.reply({ content: '', embed: richEmbed });
+      return;
+    } else {
+      const embed = new discord.Embed();
+      embed.setTitle(`Sus Calculator ${discord.decor.Emojis.ELECTRIC_PLUG}`);
+      embed.setDescription(
+        `${message.author.getTag()} is **${(Math.random() * 101) | 0}%** Sus ${discord.decor.Emojis.WAVE}`
+      );
+      embed.setColor((Math.random() * 0xffffff) | 0);
+      embed
+        .addField({
+          name: '**ID:**',
+          value: `${message.author.id}`,
+          inline: false
+        })
+        .setThumbnail({ url: message.author.getAvatarUrl() });
+      await message.reply({ content: '', embed: embed });
+      return;
+    }
   }
 );
 
