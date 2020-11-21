@@ -92,6 +92,126 @@ commands.on(
   }
 );
 
+//lovemeters
+//lovemeter but can only ship people in your server
+commands.on(
+  {
+    name: 'lovemeter'
+  },
+  (args) => ({
+    ID_1: args.string(),
+    ID_2: args.string()
+  }),
+  async (message, { ID_1, ID_2 }) => {
+    if (ID_1 == null) return message.reply('Cannot find first person');
+    if (ID_2 == null) return message.reply('Cannot find second person');
+    const love = Math.floor(Math.random() * 100) + 1;
+    const richEmbed = new discord.Embed();
+    /*richEmbed.setAuthor({
+      name: message.author.getTag(),
+      iconUrl: message.author.getAvatarUrl()
+    });*/
+    richEmbed.setTitle(
+      `${discord.decor.Emojis.HEART} LOVE METER ${discord.decor.Emojis.HEART}`
+    );
+    //richEmbed.setColor(0xffff00);
+    richEmbed.setColor(0xff0076);
+    richEmbed.setDescription(`<@${ID_1}> ${
+      discord.decor.Emojis.HEARTPULSE
+    } <@${ID_2}>
+${new Array(10)
+  .fill(0)
+  .map((el, i) =>
+    i < Math.floor(love / 10)
+      ? discord.decor.Emojis.HEARTPULSE
+      : discord.decor.Emojis.BLACK_HEART
+  )
+  .join('')} (\`${love}/100\`)
+`);
+    richEmbed.setThumbnail({
+      url: 'https://hotemoji.com/images/dl/k/beating-heart-emoji-by-twitter.png'
+    });
+    richEmbed.setTimestamp(new Date().toISOString());
+    message.reply({ content: '', embed: richEmbed });
+  }
+);
+
+//ship poeple from anywhere on discord as long as you have their user ID
+commands.on(
+  {
+    name: 'ship3'
+  },
+  (args) => ({
+    person1: args.stringOptional(),
+    person2: args.stringOptional()
+  }),
+  async (message, { person1, person2 }) => {
+    if (person1 == null) return message.reply('Cannot find first person');
+    if (person2 == null) return message.reply('Cannot find second person');
+    const love = Math.floor(Math.random() * 100) + 1;
+    const richEmbed = new discord.Embed();
+    richEmbed.setTitle(
+      `${discord.decor.Emojis.HEART} LOVE METER ${discord.decor.Emojis.HEART}`
+    );
+    richEmbed.setColor(0xff0076);
+    richEmbed.setDescription(`${person1} ${
+      discord.decor.Emojis.HEARTPULSE
+    } ${person2}
+${new Array(10)
+  .fill(0)
+  .map((el, i) =>
+    i < Math.floor(love / 10)
+      ? discord.decor.Emojis.HEARTPULSE
+      : discord.decor.Emojis.BLACK_HEART
+  )
+  .join('')} (\`${love}/100\`)
+`);
+    richEmbed.setThumbnail({
+      url: 'https://hotemoji.com/images/dl/k/beating-heart-emoji-by-twitter.png'
+    });
+    richEmbed.setTimestamp(new Date().toISOString());
+    message.reply({ content: '', embed: richEmbed });
+  }
+);
+
+//lovemter but you can ship a name, person or object with each other
+commands.on(
+  {
+    name: 'lovemeter3'
+  },
+  (args) => ({
+    person1: args.stringOptional(),
+    person2: args.stringOptional()
+  }),
+  async (message, { person1, person2 }) => {
+    if (person1 == null) return message.reply('Cannot find first person');
+    if (person2 == null) return message.reply('Cannot find second person');
+    const love = Math.floor(Math.random() * 100) + 1;
+    const richEmbed = new discord.Embed();
+    richEmbed.setTitle(
+      `${discord.decor.Emojis.HEART} LOVE METER ${discord.decor.Emojis.HEART}`
+    );
+    richEmbed.setColor(0xff0076);
+    richEmbed.setDescription(`${
+      discord.decor.Emojis.SMALL_RED_TRIANGLE_DOWN
+    } ${person1}\n${discord.decor.Emojis.SMALL_RED_TRIANGLE} ${person2}
+${new Array(10)
+  .fill(0)
+  .map((el, i) =>
+    i < Math.floor(love / 10)
+      ? discord.decor.Emojis.HEARTPULSE
+      : discord.decor.Emojis.BLACK_HEART
+  )
+  .join('')} (\`${love}/100\`)
+`);
+    richEmbed.setThumbnail({
+      url: 'https://hotemoji.com/images/dl/k/beating-heart-emoji-by-twitter.png'
+    });
+    richEmbed.setTimestamp(new Date().toISOString());
+    message.reply({ content: '', embed: richEmbed });
+  }
+);
+
 //make your bot say something
 commands.on(
   { name: 'message' },
